@@ -1,0 +1,58 @@
+name: CropAdvisoryAgent
+version: 1.1.0
+description: >
+  Advanced AI Agronomist Mission Station.
+  Farmers submit crop photos and data (Region, Area, Severity) 
+  for real-time visual analysis and seasonal planning.
+
+tasks:
+  - id: task1_diagnose
+    difficulty: easy
+    description: "Identify problem category, specific name, and urgency from crop photo."
+    score_range: [0.0, 1.0]
+    max_steps: 1
+
+  - id: task2_recommend
+    difficulty: medium
+    description: "Analyze photo and provide specific treatment protocols and products."
+    score_range: [0.0, 1.0]
+    max_steps: 1
+
+  - id: task3_plan
+    difficulty: hard
+    description: "Multi-step visual analysis for complete diagnostic and 6-step seasonal plan."
+    score_range: [0.0, 1.0]
+    max_steps: 1
+
+observation_space:
+  farm_id: string
+  crop_name: string
+  region: string
+  area_size: string
+  severity: string
+  image_provided: boolean
+  task_id: string
+  task_description: string
+  step: integer
+  max_steps: integer
+
+action_space:
+  task_id: string
+  action_type: string
+  payload: object
+  image_base64: string
+  image_provided: boolean
+  crop_name: string
+  region: string
+  area_size: string
+  severity: string
+
+api:
+  reset: POST /reset
+  step: POST /step
+  state: GET /state
+  analyze: POST /analyze
+  health: GET /health
+  tasks: GET /tasks
+
+endpoint: http://localhost:7860
